@@ -254,7 +254,7 @@
       <button type="submit" class="btn btn-orange login-submit">🔐 Masuk</button>
     </form>
     <div class="login-hint">
-      Akun untuk PPL diberikan oleh Admin BPS Kabupaten. PPL hanya dapat melihat menu Dashboard SATGAS SE dan Upload Progress, dengan data Per Wilayah &amp; Per Petugas terbatas pada tim PML masing-masing.
+      Akun untuk PPL diberikan oleh Admin BPS Kabupaten. PPL hanya dapat melihat menu Dashboard SATGAS SE dan Pelaporan Progress Kumulatif, dengan data Per Wilayah &amp; Per Petugas terbatas pada tim PML masing-masing.
     </div>
   </div>
 </div>
@@ -279,7 +279,7 @@
         <div class="sub-item" id="sub-capaian" onclick="showView('capaian')"><span class="dot"></span> Per Capaian</div>
       </div>
       <div class="menu-item" id="menu-se2026" onclick="showView('se2026')"><span class="ico">🎯</span> Dashboard SE2026</div>
-      <div class="menu-item" id="menu-upload" onclick="showView('upload')"><span class="ico">📊</span> Upload Progress</div>
+      <div class="menu-item" id="menu-upload" onclick="showView('upload')"><span class="ico">📊</span> Pelaporan Progress Kumulatif</div>
       <div class="menu-item" id="menu-wilayahchange" onclick="showView('perubahan')"><span class="ico">🔁</span> Perubahan Wilayah</div>
     </nav>
   </aside>
@@ -484,11 +484,11 @@
 
       <div id="view-upload" class="hidden">
         <div class="breadcrumb-row">
-          <div class="page-title" style="margin:0;">📊 Upload Progress Batch</div>
+          <div class="page-title" style="margin:0;">📊 Pelaporan Progress Kumulatif Batch</div>
           <button class="btn btn-outline" onclick="showView('wilayah')">← Kembali</button>
         </div>
         <div class="panel">
-          <div class="panel-head">⬆ Form Upload Progress</div>
+          <div class="panel-head">⬆ Form Pelaporan Progress Kumulatif</div>
           <div style="padding:20px;">
             <div class="upload-tabs">
               <button type="button" class="upload-tab-btn" id="tab-btn-excel" onclick="switchUploadMode('excel')">📁 Upload Excel</button>
@@ -680,7 +680,7 @@ let CLOUD_SYNCING = false; // true saat sedang menulis ke cloud, supaya listener
 
 // ===== AKUN LOGIN (daftar manual — tambahkan/ubah akun di sini) =====
 // role: 'admin'  -> lihat semua menu & semua data
-// role: 'ppl'    -> hanya lihat menu Dashboard PASPOR & Upload Progress;
+// role: 'ppl'    -> hanya lihat menu Dashboard PASPOR & Pelaporan Progress Kumulatif;
 //                   data Per Wilayah & Per Petugas dibatasi hanya baris dengan
 //                   namaPML yang SAMA dengan namaPML akun ini (Per Capaian tetap semua data)
 const ACCOUNTS = [
@@ -998,7 +998,7 @@ async function initCloudSync(){
   renderAll();
   showView('wilayah');
 
-  // Dengarkan perubahan real-time: kalau perangkat lain upload progress, halaman ini otomatis ikut update
+  // Dengarkan perubahan real-time: kalau perangkat lain Pelaporan Progress Kumulatif, halaman ini otomatis ikut update
   onSnapshot(DOC_REF, (snap)=>{
     if(CLOUD_SYNCING) return; // abaikan echo dari penulisan sendiri
     if(!snap.exists()) return;
