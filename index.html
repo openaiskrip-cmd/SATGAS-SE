@@ -1188,7 +1188,7 @@ function renderWilayahTable(){
 
   if(wilNav.level==='kec'){
     backBtn.classList.add('hidden');
-    titleEl.textContent = 'Progres Capaian (Kabupaten/Kota 05)';
+    titleEl.textContent = 'Progres Capaian (Kabupaten 05. Bangka Selatan)';
     thead.innerHTML = `<tr>${commonHeadKeys.map(([l,k])=>wilTh(l,k)).join('')}</tr>`;
     const groups = groupByField(scopedRAW(), r=>r.kodeKec);
     let items = [...groups.entries()].map(([kode,g])=>{
@@ -1211,7 +1211,9 @@ function renderWilayahTable(){
     tbody.innerHTML = rows.join('');
   } else if(wilNav.level==='desa'){
     backBtn.classList.remove('hidden');
-    titleEl.textContent = `Progres Capaian (Kecamatan ${wilNav.kec})`;
+    const kecRow = scopedRAW().find(r=>r.kodeKec===wilNav.kec);
+    const kecNama = kecRow ? kecRow.namaKec : '';
+    titleEl.textContent = `Progres Capaian (Kecamatan ${wilNav.kec}. ${kecNama})`;
     thead.innerHTML = `<tr>${commonHeadKeys.map(([l,k])=>wilTh(l,k)).join('')}</tr>`;
     const scope = scopedRAW().filter(r=>r.kodeKec===wilNav.kec);
     const groups = groupByField(scope, r=>r.kodeDesa);
@@ -1235,7 +1237,10 @@ function renderWilayahTable(){
     tbody.innerHTML = rows.join('');
   } else {
     backBtn.classList.remove('hidden');
-    titleEl.textContent = `Progres Capaian (Desa/Kelurahan ${wilNav.desa})`;
+    const slsScopeRow = scopedRAW().find(r=>r.kodeKec===wilNav.kec && r.kodeDesa===wilNav.desa);
+    const kecNama2 = slsScopeRow ? slsScopeRow.namaKec : '';
+    const desaNama2 = slsScopeRow ? slsScopeRow.namaDesa : '';
+    titleEl.textContent = `Progres Capaian (Kec. ${kecNama2} - Desa/Kelurahan ${wilNav.desa}. ${desaNama2})`;
     const slsHeadKeys = [['Wilayah','nama'],['Total SLS','jmlSLS'],['Target Prelist','targetSubmit'],['Jumlah Prelis yang Disubmit','totalSubmit'],['Jumlah Keluarga yang Didata','keluarga'],['Jumlah Usaha yang Didata','usaha']];
     // thead.innerHTML = `<tr>${slsHeadKeys.map(([l,k])=>wilTh(l,k)).join('')}<th>Anomali</th></tr>`;
     const scope = scopedRAW().filter(r=>r.kodeKec===wilNav.kec && r.kodeDesa===wilNav.desa);
